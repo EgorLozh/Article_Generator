@@ -18,6 +18,6 @@ def get_article(url):
 
 
 if __name__ == '__main__':
-    url ='https://vtomske.ru/news/204985-letnee-solncestoyanie-2024-kogda-nastupit-primety-interesnye-fakty'
+    url ="https://ura.news/news/1052783534"
     text = get_article(url)
     print(text)
