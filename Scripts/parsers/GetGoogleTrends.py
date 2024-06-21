@@ -21,7 +21,11 @@ def get_google_trends():
                             headers=headers).text.replace(")]}',", "", 1)
     json_response = json.loads(response)
     main_info = json_response['default']['trendingSearchesDays'][0]['trendingSearches']
-    print(main_info)
+    articles = [{
+        'title': article['title']['query'],
+        'source_url': article['image']['newsUrl'],
+    } for article in main_info]
+    return articles
 
 if __name__=="__main__":
-    get_google_trends()
+    print(*get_google_trends(), sep="\n")
