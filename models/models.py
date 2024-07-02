@@ -1,10 +1,10 @@
 from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, MetaData
 
 
-class Model(DeclarativeBase):
-    pass
+metadata = MetaData()
+Model = declarative_base(metadata=metadata)
 
 class Query(Model):
     __tablename__ = 'query'
@@ -18,10 +18,3 @@ class Article(Model):
     query_id = Column(Integer, ForeignKey('query.id'))
     text = Column(String)
     date_update = Column(Date)
-
-
-engine = create_async_engine('sqlite+aiosqlite:///task.db')
-
-async def create_tables():
-    async with engine.begin() as conn:
-        await conn.run_sync(Model.metadata.create_all)
