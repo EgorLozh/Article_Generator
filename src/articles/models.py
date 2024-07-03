@@ -9,6 +9,7 @@ Model = declarative_base(metadata=metadata)
 class Query(Model):
     __tablename__ = 'query'
     id = Column(Integer, primary_key=True)
+    src_url = Column(String, nullable=False)
     title = Column(String)
     date = Column(Date)
 
@@ -17,4 +18,5 @@ class Article(Model):
     id = Column(Integer, primary_key=True)
     query_id = Column(Integer, ForeignKey('query.id'))
     text = Column(String)
+    image = Column(String, nullable=True)
     date_update = Column(Date)
