@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+    <div class="article-detail">
+        <h2>{{ article.title }}</h2>
+        <p class="article-date">Опубликовано: {{ article.update_at.date() }}</p>
+        <div class="article-content">
+            {{ article.text | safe }}
+        </div>
+        <a href="/pages/list" class="back-link">Назад к списку новостей</a>
+    </div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .article-detail {
+        margin: 20px 0;
+    }
+    .article-detail h2 {
+        margin: 0 0 10px;
+        font-size: 24px;
+    }
+    .article-date {
+        color: #777;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .article-content {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #007bff;
+        text-decoration: none;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}

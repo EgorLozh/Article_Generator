@@ -23,7 +23,7 @@ def get_google_trends():
     main_info = json_response['default']['trendingSearchesDays'][0]['trendingSearches']
     articles = [{
         'title': article['title']['query'],
-        'source_url': article['image']['newsUrl'],
+        'src_url': article['image']['newsUrl'],
     } for article in main_info]
     return articles
 

@@ -1,7 +1,6 @@
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Date, ForeignKey, MetaData
-
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, MetaData, UniqueConstraint
 
 metadata = MetaData()
 Model = declarative_base(metadata=metadata)
@@ -11,7 +10,8 @@ class Query(Model):
     id = Column(Integer, primary_key=True)
     src_url = Column(String, nullable=False)
     title = Column(String)
-    date = Column(Date)
+    update_at = Column(DateTime)
+    __table_args__ = (UniqueConstraint('title', 'src_url'),)
 
 class Article(Model):
     __tablename__ = 'article'
@@ -19,4 +19,5 @@ class Article(Model):
     query_id = Column(Integer, ForeignKey('query.id'))
     text = Column(String)
     image = Column(String, nullable=True)
-    date_update = Column(Date)
+    update_at = Column(DateTime)
+    __table_args__ = (UniqueConstraint('query_id'),)

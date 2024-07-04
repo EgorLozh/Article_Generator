@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+    <h2>Список новостей</h2>
+    {% if articles %}
+        <div class="news-list">
+            {% for article in articles %}
+                <div class="news-item">
+                    <h2>{{ article.update_at.date() }}</h2>
+                    <p>{{ article.text[:100] }}</p>
+                    <a href="/pages/detail/{{ article.id }}" class="read-more">Читать далее</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            {% if prev_page_url %}
+                <a href="{{ prev_page_url }}" class="pagination-link">« Предыдущая</a>
+            {% endif %}
+            {% for page in pages %}
+                <a href="{{ page.url }}" class="pagination-link {% if page.is_current %}current{% endif %}">{{ page.number }}</a>
+            {% endfor %}
+            {% if next_page_url %}
+                <a href="{{ next_page_url }}" class="pagination-link">Следующая »</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>Нет новостей для отображения.</p>
+    {% endif %}
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .news-list {
+        margin: 20px 0;
+    }
+    .news-item {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+    }
+    .news-item h2 {
+        margin: 0;
+        font-size: 20px;
+    }
+    .news-item p {
+        margin: 5px 0 0;
+        font-size: 16px;
+    }
+    .news-item .read-more {
+        display: inline-block;
+        margin-top: 10px;
+        color: #007bff;
+        text-decoration: none;
+    }
+    .news-item .read-more:hover {
+        text-decoration: underline;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    .pagination-link {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 0 5px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .pagination-link:hover {
+        background-color: #0056b3;
+    }
+    .pagination-link.current {
+        background-color: #0056b3;
+        cursor: default;
+    }
+</style>
+{% endblock %}
